@@ -6,22 +6,23 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 class ApiService {
-  private apollo: ApolloBase;
+  private apollo: any;
 
   constructor(private apolloProvider: Apollo) {
     this.apollo = this.apolloProvider.use('newClientName');
   }
   // ApolloQueryResult
-  // getData(): Observable<any> {
-  //   return this.apollo.watchQuery({
-  //     query: gql`
-  //       {
-  //         rates(currency: "USD") {
-  //           currency
-  //           rate
-  //         }
-  //       }
-  //     `,
-
-  // }
+  getData(): Observable<ApolloQueryResult<any>> {
+    return this.apollo.watchQuery({
+      query: gql`
+        {
+          rates(currency: "USD") {
+            currency
+            rate
+          }
+        }
+      `,
+    });
+  }
 }
+

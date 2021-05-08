@@ -1,4 +1,4 @@
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo, ApolloBase, gql } from 'apollo-angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,13 +11,16 @@ export class ExchangeRatesComponent implements OnInit {
   rates!: any[];
   loading = true;
   error: any;
-
-  constructor(private apollo: Apollo) { }
+  private apollo: ApolloBase;
+  constructor(private apolloProvider: Apollo) {
+    this.apollo = this.apolloProvider.use('defaultType');
+  }
 
   ngOnInit(): void {
-    this.apollo
-      .watchQuery({
-        query: gql`
+    if (this.apollo) {
+      this.apollo
+        .watchQuery({
+          query: gql`
           {
             rates(currency: "USD") {
               currency
@@ -25,12 +28,14 @@ export class ExchangeRatesComponent implements OnInit {
             }
           }
         `,
-      })
-      .valueChanges.subscribe((result: any) => {
-        this.rates = result?.data?.rates;
-        this.loading = result.loading;
-        this.error = result.error;
-      });
+        })
+        .valueChanges.subscribe((result: any) => {
+          this.rates = result?.data?.rates;
+          this.loading = result.loading;
+          this.error = result.error;
+        });
+    }
+
   }
 
 }
