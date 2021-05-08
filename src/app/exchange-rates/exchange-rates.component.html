@@ -1,0 +1,17 @@
+<div *ngIf="loading" class="spinner_wrap">
+  <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+</div>
+<div *ngIf="error">
+  Error :(
+</div>
+<div *ngIf="rates">
+  <!-- <mat-list role="list"> -->
+  <ul>
+    <li *ngFor="let rate of rates">
+      <h4>
+        {{ rate?.currency }}: {{ rate?.rate }}
+      </h4>
+    </li>
+  </ul>
+  <!-- </mat-list> -->
+</div>
