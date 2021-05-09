@@ -1,21 +1,22 @@
-import { ApolloQueryResult, Observable, gql } from '@apollo/client/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GET_FEED, GET_POST, GET_POSTS_OF_AUTHOR } from './queries';
+import { GET_FEED, GET_POST, GET_POSTS_OF_AUTHOR } from '../queries';
 
-import { Apollo } from 'apollo-angular';
-import { LoggerService } from '../common/services/logger.service';
-import { PostsService } from './posts.service';
+import { LoggerService } from 'src/app/common/services/logger.service';
+import { PostsService } from '../posts.service';
+import { QueryRef } from 'apollo-angular';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss'],
+  selector: 'app-posts-home',
+  templateUrl: './posts-home.component.html',
+  styleUrls: ['./posts-home.component.scss']
 })
-export class PostsComponent implements OnInit, OnDestroy {
+export class PostsHomeComponent implements OnInit, OnDestroy {
+
   loading = true;
   posts: any;
+  postsQuery!: QueryRef<any>
   apollo!: any;
   private querySubscription: Subscription[] = [];
   authorPost$!: any;
@@ -36,15 +37,16 @@ export class PostsComponent implements OnInit, OnDestroy {
         })
     );
   }
+  refresh() {
+    this.postsQuery.refetch()
+  }
 
   getAuthorsPost(authorId: number): void {
     this.authorPost$ = this.$postService.getAuthorsPost(GET_POSTS_OF_AUTHOR, authorId).pipe(map(data => {
       return data.data.postsOf[0];
     }));
   }
-
   ngOnDestroy(): void {
     this.querySubscription.forEach(subs => subs.unsubscribe());
   }
-
 }

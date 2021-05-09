@@ -1,1 +1,36 @@
-<p>feeds works!</p>
+<!-- <ng-template #feedsContent> -->
+<!-- <ng-container *ngIf="!isLoading"> -->
+<div *ngIf="$any(feed$)|async" class='list-container'>
+  <mat-list>
+    <h3 matSubheader>Authors</h3>
+    <!-- *ngFor="let folder of folders" -->
+    <mat-list-item *ngFor="let author of $any($any(feed$) |async)?.authors ">
+      <mat-icon matListIcon>account_circle</mat-icon>
+      <h4 matLine>{{author.id}}
+        <!-- <p matLine class="demo-2"></p> -->
+        {{author?.firstName}} {{author?.lastName}}
+      </h4>
+
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <h3 matSubheader>Posts</h3>
+    <mat-list-item *ngFor="let post of $any($any(feed$) |async)?.posts">
+      <mat-icon matListIcon>list</mat-icon>
+      <h4 matLine>{{post?.id}} {{post?.title}}</h4>
+    </mat-list-item>
+  </mat-list>
+</div>
+<!-- </ng-container> -->
+
+
+<!-- </ng-template> -->
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner">
+    <mat-progress-spinner mode="indeterminate" color="primary" [strokeWidth]="10"></mat-progress-spinner>
+  </div>
+</ng-container>
+
+<div *ngIf="!isLoading" class="action-btn">
+  <button routerLink="/posts" mat-raised-button color="primary">Go Back</button>
+</div>

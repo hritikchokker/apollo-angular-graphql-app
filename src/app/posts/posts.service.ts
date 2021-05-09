@@ -26,6 +26,10 @@ export class PostsService {
     }).valueChanges;
   }
 
+  queryWithPolling(query: any) {
+    return this.apollo.watchQuery({ query, pollInterval: 500 }).valueChanges;
+  }
+
   getAuthorsPost(query: any, authorId: number): Observable<any> {
     return this.apollo.watchQuery({ query, variables: { authorId } })
       .valueChanges;
