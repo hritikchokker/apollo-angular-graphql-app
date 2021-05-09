@@ -1,0 +1,19 @@
+.container-panel {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+}
+:host .mat-expansion-panel {
+  margin: 20px;
+  width: 500px;
+}
+p {
+  color: brown;
+}
+
+.spinner {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}

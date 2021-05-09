@@ -1,29 +1,40 @@
-import { Apollo, ApolloBase } from 'apollo-angular';
-import { ApolloQueryResult, gql } from '@apollo/client/core';
+import {
+  Apollo,
+  ApolloBase,
+  QueryRef
+} from 'apollo-angular';
+import {
+  ApolloQueryResult,
+  gql
+} from '@apollo/client/core';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-const GET_POST = gql`
-  query GetPosts {
-    posts {
-      id
-      title
-    }
-  }
-`;
 @Injectable()
 export class PostsService {
 
-  apollo!: any;
+  apollo!: ApolloBase;
   constructor(private $apolloProvider: Apollo) {
-    this.apollo = this.$apolloProvider.use('newClientName');
+    this.apollo = this.$apolloProvider.use('graphqlHeroku');
   }
 
-  getPosts(): Observable<ApolloQueryResult<any>> {
+  getPosts(query: any): Observable<ApolloQueryResult<any>> {
     return this.apollo.watchQuery({
-      query: GET_POST,
+      query
     }).valueChanges;
   }
+
+  getAuthorsPost(query: any, authorId: number): Observable<any> {
+    return this.apollo.watchQuery({ query, variables: { authorId } })
+      .valueChanges;
+  }
+  getFeed(query: any): Observable<any> {
+    return this.apollo.watchQuery({ query })
+      .valueChanges;
+    // .pipe(map((result: any) => result.data.posts));
+  }
 }
+
+

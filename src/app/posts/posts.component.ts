@@ -1,47 +1,58 @@
-import { ApolloQueryResult, gql } from '@apollo/client/core';
+import { ApolloQueryResult, Observable, gql } from '@apollo/client/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { GET_FEED, GET_POST, GET_POSTS_OF_AUTHOR } from './queries';
 
 import { Apollo } from 'apollo-angular';
+import { LoggerService } from '../common/services/logger.service';
 import { PostsService } from './posts.service';
 import { Subscription } from 'rxjs';
-
-const GET_POST = gql`
-  query GetPosts {
-    posts {
-      id
-      title
-    }
-  }
-`;
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss']
+  styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit, OnDestroy {
-  loading!: boolean;
+  loading = true;
   posts: any;
   apollo!: any;
-  private querySubscription: Subscription = new Subscription();
-
-  constructor(private apolloProvider: Apollo) {
-    this.apollo = this.apolloProvider.use('newClientName');
+  private querySubscription: Subscription[] = [];
+  authorPost$!: any;
+  constructor(
+    // private apolloProvider: Apollo,
+    public $postService: PostsService,
+    private $logger: LoggerService
+  ) {
+    // this.apollo = this.apolloProvider.use('graphqlHeroku');
   }
 
   ngOnInit(): void {
-    this.querySubscription = this.apollo.watchQuery({
-      query: GET_POST
-    })
-      .valueChanges
-      .subscribe(({ data, loading }: any) => {
-        this.loading = loading;
-        this.posts = data.posts;
+    this.querySubscription.push(
+      this.$postService.getPosts(GET_POST)
+        .subscribe(({ data, loading }: any) => {
+          this.loading = loading;
+          this.posts = data.posts;
+        })
+    );
+    this.getFeeds();
+  }
+
+  getAuthorsPost(authorId: number): void {
+    this.authorPost$ = this.$postService.getAuthorsPost(GET_POSTS_OF_AUTHOR, authorId).pipe(map(data => {
+      return data.data.postsOf[0];
+    }));
+  }
+
+  getFeeds(): void {
+    this.$postService.getFeed(GET_FEED)
+      .subscribe((data: any) => {
+        this.$logger.log(data, 'data feed');
       });
   }
 
   ngOnDestroy(): void {
-    this.querySubscription.unsubscribe();
+    this.querySubscription.forEach(subs => subs.unsubscribe());
   }
 
 }

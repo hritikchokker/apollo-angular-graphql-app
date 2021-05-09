@@ -1,5 +1,12 @@
-import { APOLLO_NAMED_OPTIONS, APOLLO_OPTIONS, NamedOptions } from 'apollo-angular';
-import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+import {
+  APOLLO_NAMED_OPTIONS,
+  APOLLO_OPTIONS,
+  NamedOptions
+} from 'apollo-angular';
+import {
+  ApolloClientOptions,
+  InMemoryCache
+} from '@apollo/client/core';
 
 import { HttpLink } from 'apollo-angular/http';
 import { NgModule } from '@angular/core';
@@ -18,6 +25,12 @@ export function createApollo(httpLink: HttpLink): NamedOptions {
         uri: 'https://o5x5jzoo7z.sse.codesandbox.io/graphql',
       }),
     },
+    graphqlHeroku: {
+      cache: new InMemoryCache(),
+      link: httpLink.create({
+        uri: 'https://graphql-voter-app.herokuapp.com'
+      })
+    }
   };
 }
 
