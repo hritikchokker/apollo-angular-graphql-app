@@ -26,7 +26,7 @@ export class PostsService {
     }).valueChanges;
   }
 
-  queryWithPolling(query: any) {
+  queryWithPolling(query: any): Observable<any> {
     return this.apollo.watchQuery({ query, pollInterval: 500 }).valueChanges;
   }
 

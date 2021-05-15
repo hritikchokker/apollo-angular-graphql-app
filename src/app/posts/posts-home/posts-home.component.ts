@@ -16,7 +16,7 @@ export class PostsHomeComponent implements OnInit, OnDestroy {
 
   loading = true;
   posts: any;
-  postsQuery!: QueryRef<any>
+  postsQuery!: QueryRef<any>;
   apollo!: any;
   private querySubscription: Subscription[] = [];
   authorPost$!: any;
@@ -37,9 +37,14 @@ export class PostsHomeComponent implements OnInit, OnDestroy {
         })
     );
   }
-  refresh() {
-    this.postsQuery.refetch()
+  refresh(): void {
+    this.postsQuery.refetch();
   }
+  // newRepository() {
+  //   this.apollo.mutate({
+  //     mutation: UPVOTE_POST
+  //   }).subscribe();
+  // }
 
   getAuthorsPost(authorId: number): void {
     this.authorPost$ = this.$postService.getAuthorsPost(GET_POSTS_OF_AUTHOR, authorId).pipe(map(data => {

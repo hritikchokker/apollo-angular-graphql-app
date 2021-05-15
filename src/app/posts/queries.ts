@@ -5,6 +5,7 @@ export const GET_POST = gql`
     posts {
       id
       title
+      votes
     }
   }
 `;
@@ -13,6 +14,7 @@ export const GET_POSTS_OF_AUTHOR = gql`
     postsOf(authorId: $authorId) {
       id
       title
+      votes
     }
   }
 `;
@@ -27,6 +29,16 @@ export const GET_FEED = gql`
     posts {
       id
       title
+      votes
+    }
+  }
+`;
+
+export const UPVOTE_POST = gql`
+  mutation UpvotePost {
+    upvotePost(postId: 12) {
+      id
+      votes
     }
   }
 `;
