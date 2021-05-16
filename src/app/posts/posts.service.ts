@@ -11,6 +11,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { GET_POST } from './queries';
 
 @Injectable()
 export class PostsService {
@@ -26,8 +27,22 @@ export class PostsService {
     }).valueChanges;
   }
 
+  fetchPostDetail(postId: any): Observable<any> {
+    return this.getPosts(GET_POST)
+      .pipe(map(({ data }: any) => data.posts.filter((el: any) => el.id === +postId)));
+  }
+
   queryWithPolling(query: any): Observable<any> {
     return this.apollo.watchQuery({ query, pollInterval: 500 }).valueChanges;
+  }
+
+  upVote(mutation: any, postId: any): Observable<any> {
+    return this.apollo.mutate({
+      mutation,
+      variables: {
+        postId
+      }
+    });
   }
 
   getAuthorsPost(query: any, authorId: number): Observable<any> {

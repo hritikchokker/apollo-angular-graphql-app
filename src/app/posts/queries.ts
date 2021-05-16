@@ -19,6 +19,7 @@ export const GET_POSTS_OF_AUTHOR = gql`
   }
 `;
 
+
 export const GET_FEED = gql`
   query GetFeed {
     authors {
@@ -35,8 +36,8 @@ export const GET_FEED = gql`
 `;
 
 export const UPVOTE_POST = gql`
-  mutation UpvotePost {
-    upvotePost(postId: 12) {
+  mutation UpvotePost($postId: Int!) {
+    upvotePost(postId: $postId) {
       id
       votes
     }

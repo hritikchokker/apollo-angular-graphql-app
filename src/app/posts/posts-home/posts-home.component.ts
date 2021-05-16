@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GET_FEED, GET_POST, GET_POSTS_OF_AUTHOR } from '../queries';
+import { GET_FEED, GET_POST, GET_POSTS_OF_AUTHOR, UPVOTE_POST } from '../queries';
 
 import { LoggerService } from 'src/app/common/services/logger.service';
 import { PostsService } from '../posts.service';
@@ -40,11 +40,14 @@ export class PostsHomeComponent implements OnInit, OnDestroy {
   refresh(): void {
     this.postsQuery.refetch();
   }
-  // newRepository() {
-  //   this.apollo.mutate({
-  //     mutation: UPVOTE_POST
-  //   }).subscribe();
-  // }
+
+  upVote(post: any, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const { id } = post;
+    this.$postService.upVote(UPVOTE_POST, id)
+      .subscribe();
+  }
 
   getAuthorsPost(authorId: number): void {
     this.authorPost$ = this.$postService.getAuthorsPost(GET_POSTS_OF_AUTHOR, authorId).pipe(map(data => {

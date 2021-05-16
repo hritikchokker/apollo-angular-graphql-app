@@ -4,17 +4,20 @@
     <mat-accordion>
       <mat-expansion-panel (opened)="getAuthorsPost(post?.id)" *ngFor="let post of posts" hideToggle>
         <mat-expansion-panel-header>
-          {{post?.id}}: {{post?.title}}
+          <mat-panel-title>
+            {{post?.id}}: {{post?.title}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{post?.votes}} <button (click)="upVote(post,$event)" mat-raised-button>Vote</button>
+            <button [routerLink]="['/posts',post?.id]" mat-raised-button>Details</button>
+          </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-panel-title>
           This Data is fetched asynchronously
         </mat-panel-title>
         <mat-panel-description>
-          <!-- {{authorPost$ |async |json}}</h3> -->
-
+          <p>{{$any(authorPost$ |async)?.id}}: {{$any(authorPost$|async)?.title}}
         </mat-panel-description>
-        <p>{{$any(authorPost$ |async)?.id}}: {{$any(authorPost$|async)?.title}}
-          <button mat-raised-button>Action</button>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

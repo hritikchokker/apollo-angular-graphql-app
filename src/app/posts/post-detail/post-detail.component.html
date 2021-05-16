@@ -1,0 +1,30 @@
+<ng-container *ngIf="!isLoading">
+  <mat-card class="card">
+    <mat-card-title-group>
+      <!-- class="card__header" -->
+      <div>
+        <mat-card-title>{{postDetails?.id}}</mat-card-title>
+        <mat-card-subtitle>{{postDetails?.title}}</mat-card-subtitle>
+      </div>
+    </mat-card-title-group>
+    <mat-card-content>
+      total votes {{postDetails?.votes}}
+    </mat-card-content>
+    <mat-card-actions align="start">
+      <button [routerLink]="['/posts',postDetails?.id,'edit']" mat-raised-button>Edit</button>
+
+    </mat-card-actions>
+    <mat-card-footer>
+      Footer
+    </mat-card-footer>
+  </mat-card>
+  <div class="loading" *ngIf="!isLoading">
+    <button routerLink="/posts" mat-raised-button>Go Back</button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner">
+    <mat-progress-spinner mode="indeterminate" color="primary" [strokeWidth]="10"></mat-progress-spinner>
+  </div>
+</ng-container>

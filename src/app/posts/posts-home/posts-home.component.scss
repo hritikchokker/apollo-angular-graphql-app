@@ -4,9 +4,10 @@
   width: 100%;
   margin-top: 15px;
 }
-:host .mat-expansion-panel {
+.mat-expansion-panel {
   margin: 20px;
   width: 500px;
+  background-color: rgb(32, 179, 179);
 }
 p {
   color: brown;

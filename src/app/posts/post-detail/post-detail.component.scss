@@ -1,0 +1,48 @@
+.spinner {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+:host {
+  // display: flex;
+  margin-top: 30px;
+  height: auto;
+  mat-card {
+    margin: auto;
+  }
+  .card {
+    width: 400px;
+    min-height: 250px;
+    margin: 30px;
+    background: #00b4db; /* fallback for old browsers */
+    color: #000;
+    text-align: center;
+    background: #56ccf2; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #2f80ed,
+      #56ccf2
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #2f80ed,
+      #56ccf2
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    // &__header {
+    //   text-align: center;
+    // }
+  }
+}
+.mat-card-title-group {
+  display: block;
+}
+.mat-card-actions {
+  text-align: center;
+}
+
+.loading {
+  // position: absolute;
+  display: block;
+  text-align: center;
+}

@@ -15,6 +15,9 @@ import { NgModule } from '@angular/core';
 import { PostsComponent } from './posts.component';
 import { PostsHomeComponent } from './posts-home/posts-home.component';
 import { PostsService } from './posts.service';
+import { MatCardModule } from '@angular/material/card';
+import { PostDetailComponent } from './post-detail/post-detail.component';
+import { PostEditComponent } from './post-edit/post-edit.component';
 
 const routes: Routes = [
   {
@@ -28,6 +31,14 @@ const routes: Routes = [
       {
         path: 'feeds',
         component: FeedsComponent
+      },
+      {
+        path: ':id/edit',
+        component: PostEditComponent
+      },
+      {
+        path: ':id',
+        component: PostDetailComponent
       }
     ]
   }
@@ -37,7 +48,9 @@ const routes: Routes = [
   declarations: [
     PostsComponent,
     FeedsComponent,
-    PostsHomeComponent
+    PostsHomeComponent,
+    PostDetailComponent,
+    PostEditComponent
   ],
   imports: [
     CommonModule,
@@ -45,6 +58,7 @@ const routes: Routes = [
     MatButtonModule,
     MatExpansionModule,
     MatSelectModule,
+    MatCardModule,
     MatIconModule,
     MatListModule,
     MatProgressSpinnerModule,
