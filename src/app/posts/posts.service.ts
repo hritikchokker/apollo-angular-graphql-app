@@ -1,7 +1,6 @@
 import {
   Apollo,
-  ApolloBase,
-  QueryRef
+  ApolloBase
 } from 'apollo-angular';
 import {
   ApolloQueryResult,
