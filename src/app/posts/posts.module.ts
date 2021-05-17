@@ -12,12 +12,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { NgModule } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { PostsComponent } from './posts.component';
 import { PostsHomeComponent } from './posts-home/posts-home.component';
 import { PostsService } from './posts.service';
 import { MatCardModule } from '@angular/material/card';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -58,6 +61,9 @@ const routes: Routes = [
     MatButtonModule,
     MatExpansionModule,
     MatSelectModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatCardModule,
     MatIconModule,
     MatListModule,

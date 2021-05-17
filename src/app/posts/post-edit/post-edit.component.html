@@ -1,1 +1,50 @@
-<button routerLink="/posts" mat-raised-button>Go Back</button>
+<!-- <ng-container *ngIf="!isLoading"> -->
+<div class="form-wrapper">
+  <form [formGroup]="postForm">
+    <div>
+      <mat-form-field>
+        <mat-label>
+          Post Id
+        </mat-label>
+        <input matInput type="text" formControlName="id">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>
+          Post Id
+        </mat-label>
+        <input matInput type="text" formControlName="title">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>
+          Votes
+        </mat-label>
+        <input matInput type="text" formControlName="votes">
+      </mat-form-field>
+    </div>
+
+    <div class="form-wrapper__actions">
+      <button mat-raised-button color="warn">Update</button>
+    </div>
+    <!-- <div>
+      <mat-form-field>
+        <mat-label>
+          Post Id
+        </mat-label>
+        <input type="text" formControlName="id">
+      </mat-form-field>
+    </div> -->
+
+  </form>
+</div>
+
+<!-- </ng-container> -->
+
+<ng-container *ngIf="isLoading">
+  <div class="spinner">
+    <mat-progress-spinner mode="indeterminate" color="primary" [strokeWidth]="10"></mat-progress-spinner>
+  </div>
+</ng-container>

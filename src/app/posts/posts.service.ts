@@ -44,6 +44,15 @@ export class PostsService {
     });
   }
 
+  updatePost(mutation: any, variables: any): Observable<any> {
+    return this.apollo.mutate({
+      mutation,
+      // variables: {
+      //   postId
+      // }
+    });
+  }
+
   getAuthorsPost(query: any, authorId: number): Observable<any> {
     return this.apollo.watchQuery({ query, variables: { authorId } })
       .valueChanges;
